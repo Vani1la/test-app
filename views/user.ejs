@@ -1,0 +1,36 @@
+<%- include('./templates/header.ejs') %>
+<div class="container" id="user__content">
+    <form action=<%= '/user/' + user.id + '/edit' %> method="POST">
+        <div class="form-group">
+          <label for="exampleInputEmail1">E-mail</label>
+          <input type="email" name="email" class="form-control" value=<%= user.email %> id="exampleInputEmail1" aria-describedby="emailHelp">
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">Имя</label>
+          <input type="text" class="form-control" name="name" value=<%= user.name %> id="exampleInputPassword1">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Телефон</label>
+            <input type="text" class="form-control" name="tell" value=<%= user.tell %> id="exampleInputPassword1">
+          </div>
+        <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+      </form>
+      <button type="button" @click="viewAddCar" class="btn btn-light view-add-car">Добавить автомобиль пользователю</button>
+      <form v-if="addCar" action=<%= "/add-car/" + id %> method="POST" class="user__add-car">
+        <div class="form-group">
+            <label>Марка</label>
+            <input type="text" class="form-control" name="brand" placeholder="Введите марку автомобиля">
+          </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">Модель</label>
+          <input type="text" class="form-control" name="model" placeholder="Введите модель автомобиля" id="exampleInputPassword1">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Год выпуска</label>
+            <input type="text" class="form-control" name="year_of_issue" placeholder="Введите год выпуска автомобиля" id="exampleInputPassword1">
+          </div>
+        <button type="submit" class="btn btn-primary">Добавить авто</button>
+      </form>
+</div>
+
+<%-include('./templates/footer.ejs') %>

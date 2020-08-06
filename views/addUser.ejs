@@ -1,0 +1,21 @@
+<%- include('./templates/header.ejs') %>
+
+<div class="container">
+    <form action="/add-user" method="POST">
+        <div class="form-group">
+          <label for="exampleInputEmail1">E-mail</label>
+          <input type="email" name="email" class="form-control" placeholder="Введите email" id="exampleInputEmail1" aria-describedby="emailHelp">
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">Имя</label>
+          <input type="text" class="form-control" name="name" placeholder="Введите имя" id="exampleInputPassword1">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Телефон</label>
+            <input type="text" class="form-control" name="tell" placeholder="Введите номер телефона" id="exampleInputPassword1">
+          </div>
+        <button type="submit" class="btn btn-primary">Добавить пользователя</button>
+      </form>
+</div>
+
+<%-include('./templates/header.ejs') %>

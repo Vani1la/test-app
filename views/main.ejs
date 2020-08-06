@@ -1,0 +1,102 @@
+<%- include ('./templates/header.ejs') %>
+<div class="container" id="main-content">
+    <h2>Список пользователей</h2>
+    <button @click="userHandler" v-if="allUsers" type="button" class="btn btn-light">Показать пользователей без автомобилей</button>
+    <button @click="userHandler" v-else type="button" class="btn btn-light">Показать всех пользователей</button>
+    <div v-if="allUsers" class="row">
+        <% users.forEach(function(user){ %>
+            <div class="col-4">
+                <div class="card" style="width: 18rem;">
+                  <div class="card-body">
+                      <h5 class="card-title"><%- user.name %></h5>
+                      <h6 class="card-subtitle mb-2 text-muted"><%- user.tell %></h6>
+                      <h6 class="card-subtitle mb-2 text-muted"><%- user.email %></h6>
+                      <p class="card-text">Автомобили: </p>
+                      <div class="cars">
+                        <% if (!user.cars || !user.cars.length) { %>
+                            <p class="card-text">У данного пользователя нет автомобилей</p>
+                        <% } %>
+                        <% cars.forEach(function(car){ %>
+                            <% if(car.owner == user.id) { %>
+                              <p class="card-text"><%= car.brand %> <%= car.model %></p>
+                            <% } %>
+                        <% }); %>
+                      </div>
+                      <a href=<%= "/user/" + user.id %> class="card-link">Редактировать</a>
+                      <a href=<%= "/del-user/" + user.id %> class="card-link red">Удалить</a>
+                  </div>
+              </div>
+          </div>
+        <% }); %>
+    </div>
+    <div v-else class="row">
+        <% users.forEach(function(user){ %>
+            <% if (!user.cars || !user.cars.length) { %>
+            <div class="col-4">
+                <div class="card" style="width: 18rem;">
+                  <div class="card-body">
+                      <h5 class="card-title"><%- user.name %></h5>
+                      <h6 class="card-subtitle mb-2 text-muted"><%- user.tell %></h6>
+                      <p class="card-text">Автомобили: </p>
+                      <div class="cars">
+                      <p class="card-text">У данного пользователя нет автомобилей</p>
+                      </div>
+                      <a href=<%= "/user/" + user.id %> class="card-link">Редактировать</a>
+                      <a href=<%= "/del-user/" + user.id %> class="card-link red">Удалить</a>
+                  </div>
+              </div>
+          </div>
+          <% } %>
+        <% }); %>
+    </div>
+    <a href="/add-user" class="card-link add-link">Добавить пользователя</a>
+    <!-- -------------------------------------------------cars----------------------------------------------- -->
+    <h2 class="title-cars">Список автомобилей</h2>
+    <button @click="carHandler" v-if="allUsers" type="button" class="btn btn-light">Показать автомобили без владельца</button>
+    <button @click="carHandler" v-else type="button" class="btn btn-light">Показать все автомобили</button>
+    <div v-if="allCars" class="row">
+        <% cars.forEach(function(car){ %>
+            <div class="col-4">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title"><%- car.brand %></h5>
+                        <h6 class="card-subtitle mb-2 text-muted"><%- car.model %></h6>
+                        <p class="card-text">Год выпуска: <%= car.year_of_issue %></p>
+                        <% if (!car.owner) { %>
+                            <p class="card-text">У данного авто нет владельца</p>
+                        <% }else {%>
+                            <% users.forEach(function(user){ %>
+                                <% if (user.id === car.owner){ %>
+                                    <p class="card-text">Владелец: <a href=<%= "/user/" + user.id %>><%= user.name %></a></p>
+                                <% }; %>
+                            <% }); %>
+                        <% }; %>
+                        <a href=<%= "/car/" + car.id %> class="card-link">Редактировать</a>
+                        <a href=<%= "/del-car/" + car.id %> class="card-link red">Удалить</a>
+                    </div>
+                </div>
+            </div>
+        <% }); %>
+    </div>
+    <div v-else class="row">
+        <% cars.forEach(function(car){ %>
+            <% if (!car.owner) { %>
+                <div class="col-4">
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body">
+                            <h5 class="card-title"><%- car.brand %></h5>
+                            <h6 class="card-subtitle mb-2 text-muted"><%- car.model %></h6>
+                            <p class="card-text">У данного авто нет владельца</p>
+                            <a href=<%= "/car/" + car.id %> class="card-link">Редактировать</a>
+                            <a href=<%= "/del-car/" + car.id %> class="card-link red">Удалить</a>
+                        </div>
+                    </div>
+                </div>
+            <% } %>
+        <% }); %>
+    </div>
+    <a href="/add-car" class="card-link add-link">Добавить автомобиль</a>
+</div>
+
+
+<%- include('./templates/footer.ejs') %>

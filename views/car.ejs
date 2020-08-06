@@ -1,0 +1,39 @@
+<%- include('./templates/header.ejs') %>
+
+<div class="container" id="car__content">
+    <form action=<%= "/car/" + id + '/edit' %> method="POST">
+        <div class="form-group">
+            <label>Марка</label>
+            <input type="text" class="form-control" name="brand" value=<%= car.brand %>>
+          </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">Модель</label>
+          <input type="text" class="form-control" name="model" value=<%= car.model %> id="exampleInputPassword1">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Год выпуска</label>
+            <input type="text" class="form-control" name="year_of_issue" value=<%= car.year_of_issue %> id="exampleInputPassword1">
+          </div>
+        <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+      </form>
+      <% if(!car.owner) { %>
+      <button type="button" @click="viewAddUser" class="btn btn-light view-add-car">Добавить владельца</button>
+      <form v-if="addUser" action=<%= "/add-user/" + id %> method="POST" class="user__add-car">
+        <div class="form-group">
+          <label for="exampleInputEmail1">E-mail</label>
+          <input type="email" name="email" class="form-control" placeholder="Введите email" id="exampleInputEmail1" aria-describedby="emailHelp">
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">Имя</label>
+          <input type="text" class="form-control" name="name" placeholder="Введите имя" id="exampleInputPassword1">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Телефон</label>
+            <input type="text" class="form-control" name="tell" placeholder="Введите номер телефона" id="exampleInputPassword1">
+          </div>
+        <button type="submit" class="btn btn-primary">Добавить пользователя</button>
+      </form>
+      <% }; %>
+</div>
+
+<%-include('./templates/footer.ejs') %>
